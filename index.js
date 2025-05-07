@@ -16,7 +16,7 @@ app.use(express.urlencoded({ extended: true })) // ✅ important for form-data p
 
 const allowedOrigins = [
     'http://localhost:5173',
-    ''
+    'https://carrental-frontend-dealer-wd99.vercel.app'
   ];
   
   app.use(cors({
