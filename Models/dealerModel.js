@@ -20,11 +20,11 @@ const dealerSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    carId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "cars",  // Make sure this matches your Dealer model name
+    // carId: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: "cars",  // Make sure this matches your Dealer model name
         
-    },
+    // },
     role: {
         type: String,
         enum: ['user', 'dealer', 'admin'],

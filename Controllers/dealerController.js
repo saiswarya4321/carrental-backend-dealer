@@ -5,11 +5,19 @@ const { hashPassword, comparePassword } = require("../utilities/passwordUtilitie
 const register = async (req, res) => {
 
     try {
+ console.log("Received register data:", req.body);
+        const { name, email, password, confirmPassword, contactNumber,role } = req.body;
+        console.log("Fields:", { name, email, password, confirmPassword, contactNumber, role });
 
-        const { name, email, password, confirmPassword, contactNumber, carId, role } = req.body;
-        if (!name || !email || !password || !confirmPassword || !contactNumber || !carId) {
-            return res.status(400).json({ error: "All fields are required!" })
-        }
+       if (
+  !name?.trim() ||
+  !email?.trim() ||
+  !password ||
+  !confirmPassword ||
+  contactNumber === undefined || contactNumber === null || contactNumber === ''
+) {
+  return res.status(400).json({ error: "All fields are required!" });
+}
         if (password !== confirmPassword) {
             return res.status(400).json({ error: "Passwords dosnot match" })
         }
@@ -21,7 +29,7 @@ const register = async (req, res) => {
         const hashedPassword = await hashPassword(password)
 
         const newUser = new dealerDb({
-            name, email, password: hashedPassword, contactNumber, carId, role
+            name, email, password: hashedPassword, contactNumber, role
         })
         const saved = await newUser.save()
         if (saved) {
